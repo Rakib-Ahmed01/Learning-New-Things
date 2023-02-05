@@ -1,42 +1,26 @@
-const mongoose = require('mongoose');
-const User = require('./schemas/User');
+const express = require('express');
+const adminRouter = require('./handlers/adminHandler');
 
-mongoose.set('strictQuery', true);
+const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/test');
+app.get('/', (req, res) => {
+  res.send({ message: 'Home Page' });
+});
 
-async function main() {
-  try {
-    // const rakib = await User.create({
-    //   name: 'Rakib Ahmed',
-    //   age: 19,
-    //   email: `rakibAHMED@gmail.com`,
-    //   address: { city: 'Kushtia', country: 'Bangladesh' },
-    //   hobbies: ['Coding'],
-    // });
-    // rakib.name = 'Rakib Ahmed';
-    // await rakib.save();
-    // console.log(rakib);
-    // const user = await User.findOne({ name: 'Rakib Ahmed' });
-    // console.log(user);
-    // console.log(user.nameAndEmail);
-    const user = await User.create({
-      name: 'Rakib Ahmed',
-      email: 'rakib@gmail.com',
-      age: 22,
-    });
-    console.log(user);
-  } catch (err) {
-    console.error(err.message);
+app.use('/admin', adminRouter);
+
+app.use((req, res, next) => {
+  const error = new Error('404 Not found!');
+  error.status = 404;
+  next(error);
+});
+
+app.use((err, req, res, next) => {
+  if (err.status) {
+    return res.status(err.status).json({ message: err.message });
+  } else {
+    return res.status(500).json({ message: 'Something went wrong!' });
   }
-}
+});
 
-main();
-
-// how to save user
-// 1. const rafin = new User({
-//     name: 'Rafin',
-//     age: 11,
-//    });
-//   await rafin.save();
-// 2. const rakib = await User.create({ name: 'Rakib', age: 21 });
+app.listen(3000, console.log('server is listening on port 3000'));
