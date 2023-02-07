@@ -3,8 +3,13 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const notFound = require('./handlers/error/404');
-const globalErrorHandler = require('./handlers/error/global');
+const {
+  notFoundHandler,
+  globalErrorHandler,
+} = require('./middlewares/common/errorHandler');
+const { inboxRouter } = require('./routers/inboxRouter');
+const { loginRouter } = require('./routers/loginRouter');
+const { usersRouter } = require('./routers/usersRouter');
 
 // app initialization
 const app = express();
@@ -31,14 +36,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // routes setup
-app.get('/', (req, res) => {
-  throw new Error();
-  res.send('Home Page');
-});
+app.use('/', loginRouter);
+app.use('/users', usersRouter);
+app.use('/inbox', inboxRouter);
 
 // error handling
 // 404 error handling
-app.use(notFound);
+app.use(notFoundHandler);
 // global error handling
 app.use(globalErrorHandler);
 
