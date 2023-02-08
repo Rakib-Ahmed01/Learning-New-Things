@@ -6,3 +6,7 @@ node_modules
 /*/.env
 /*/*/.env
 /*/*/*/.env
+.next
+/*/.next
+/*/*/.next
+/*/*/*/.next
