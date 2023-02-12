@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 export default function Posts({ posts }) {
+  console.log(`Inside Posts Conponent ${posts.length}`);
   return (
     <Layout>
       <Head>
@@ -13,12 +14,12 @@ export default function Posts({ posts }) {
         {posts.map((post) => {
           return (
             <div key={post.id} className="p-2">
-              <h3 className="text-lg font-semibold hover:underline">
+              <h3 className="text-lg font-semibold hover:underline capitalize">
                 <Link href={`/posts/${post.id}`}>
                   {post.id}: {post.title}
                 </Link>
               </h3>
-              <p>{post.body}</p>
+              <p className="capitalize">{post.body}</p>
             </div>
           );
         })}
@@ -27,9 +28,22 @@ export default function Posts({ posts }) {
   );
 }
 
+// export async function getStaticProps() {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+//   const posts = await res.json();
+
+//   return {
+//     props: {
+//       posts: posts.slice(0, 10),
+//     },
+//   };
+// }
+
 export async function getServerSideProps() {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+  const res = await fetch(`http://localhost:3500/posts`);
   const posts = await res.json();
+
+  console.log(`Inside Posts getServerSideProps ${posts.length}`);
 
   return {
     props: {
