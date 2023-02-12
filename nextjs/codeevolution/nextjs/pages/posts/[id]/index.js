@@ -106,11 +106,13 @@ export default function Post({ post }) {
 //   };
 // }
 
-export async function getServerSideProps({ params }) {
-  const res = await fetch(`http://localhost:3500/posts/${params.id}`);
-  const post = await res.json();
+export async function getServerSideProps({ params, req, res }) {
+  const response = await fetch(`http://localhost:3500/posts/${params.id}`);
+  const post = await response.json();
 
   console.log(`Inside Post getServerSideProps ${post.title}`);
+
+  res.setHeader('Set-Cookie', ['name=Rakib']);
 
   return {
     props: {
