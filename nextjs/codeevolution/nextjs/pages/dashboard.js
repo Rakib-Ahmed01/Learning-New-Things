@@ -19,8 +19,6 @@ export default function Dashboard() {
     return <h1>Loading...</h1>;
   }
 
-  console.log(dashboard);
-
   return (
     <div>
       <h1>Dashboard</h1>
