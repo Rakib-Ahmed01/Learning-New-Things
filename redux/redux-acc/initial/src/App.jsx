@@ -1,7 +1,9 @@
+import FormUseReducer from './components/FormUseReducer';
+
 function App() {
   return (
     <div>
-      <h1>Bismillah...</h1>
+      <FormUseReducer />
     </div>
   );
 }
