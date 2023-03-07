@@ -9,8 +9,13 @@ import {
   rem,
 } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
-import { useClickOutside, useDisclosure } from '@mantine/hooks';
+import {
+  useClickOutside,
+  useDisclosure,
+  useScrollIntoView,
+} from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => {
   // console.log(
@@ -152,11 +157,24 @@ export function HeaderMenuColored() {
   const [opened, { toggle, close }] = useDisclosure(false);
   const { classes } = useStyles();
 
+  const { targetRef, scrollIntoView } = useScrollIntoView();
+
   const ref = useClickOutside(() => close());
 
   const items = links.map((link) => {
     const menuItems = link.links?.map((item) => (
-      <Menu.Item key={item.link}>{item.label}</Menu.Item>
+      <Menu.Item
+        key={item.link}
+        component="a"
+        href={`#${item.link.replace('/', '')}`}
+        // onClick={(event) => {
+        //   event.preventDefault();
+        //   scrollIntoView();
+        // }}
+        onClick={() => close()}
+      >
+        {item.label}
+      </Menu.Item>
     ));
 
     if (menuItems) {
@@ -176,7 +194,10 @@ export function HeaderMenuColored() {
             <a
               href={link.link}
               className={classes.link}
-              onClick={(event) => event.preventDefault()}
+              // onClick={(event) => {
+              //   event.preventDefault();
+              //   console.log(link.label);
+              // }}
             >
               <Center>
                 <span className={classes.linkLabel}>{link.label}</span>
@@ -190,14 +211,17 @@ export function HeaderMenuColored() {
     }
 
     return (
-      <a
+      <Link
         key={link.label}
-        href={link.link}
+        to={`/#blog`}
         className={classes.link}
-        onClick={(event) => event.preventDefault()}
+        // onClick={(event) => {
+        //   event.preventDefault();
+        //   console.log(link.label);
+        // }}
       >
         {link.label}
-      </a>
+      </Link>
     );
   });
 
