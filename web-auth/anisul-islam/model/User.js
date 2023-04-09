@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const encrypt = require('mongoose-encryption');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -17,6 +18,13 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Password is required'],
     trim: true,
   },
+});
+
+var encKey = process.env.ENCRYPTION_KEY;
+
+userSchema.plugin(encrypt, {
+  secret: encKey,
+  encryptedFields: ['password'],
 });
 
 const User = mongoose.model('User', userSchema);
