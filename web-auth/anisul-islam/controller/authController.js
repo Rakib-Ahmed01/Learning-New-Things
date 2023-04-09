@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const md5 = require('md5');
 
 exports.loginController = async (req, res) => {
   const { email, password } = req.body;
@@ -18,7 +19,7 @@ exports.loginController = async (req, res) => {
     });
   }
 
-  if (password !== user.password) {
+  if (md5(password) !== user.password) {
     return res
       .status(400)
       .json({ success: false, message: 'Incorrect password' });
@@ -53,7 +54,7 @@ exports.registerController = async (req, res) => {
     });
   }
 
-  const user = await User.create({ name, email, password });
+  const user = await User.create({ name, email, password: md5(password) });
 
   res.status(200).json({ success: true, data: user });
 };
