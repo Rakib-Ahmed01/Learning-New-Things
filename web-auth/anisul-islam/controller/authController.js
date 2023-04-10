@@ -1,5 +1,9 @@
 const User = require('../model/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const {
+  getAccessAndRefreshTokens,
+} = require('../utils/getAccessAndRefreshTokens');
 
 exports.loginController = async (req, res) => {
   const { email, password } = req.body;
@@ -27,7 +31,14 @@ exports.loginController = async (req, res) => {
       .json({ success: false, message: 'Incorrect password' });
   }
 
-  res.status(200).json({ success: true, data: user });
+  const { accessToken, refreshToken } = getAccessAndRefreshTokens(user);
+
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+  });
+
+  res.status(200).json({ success: true, data: user, accessToken });
 };
 
 exports.registerController = async (req, res) => {
@@ -47,18 +58,49 @@ exports.registerController = async (req, res) => {
     });
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   const duplicate = await User.findOne({ email });
 
   if (duplicate) {
-    return res.status(400).json({
+    return res.status(409).json({
       success: false,
       message: `User already exists with the email: ${email}`,
     });
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({ name, email, password: hashedPassword });
 
   res.status(200).json({ success: true, data: user });
+};
+
+exports.refreshTokenController = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res
+      .status(401)
+      .json({ success: false, message: 'Unauthorized Access!' });
+  }
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res
+        .status(403)
+        .json({ success: false, message: 'Forbidden Access!' });
+    }
+
+    const { accessToken, refreshToken } = getAccessAndRefreshTokens(decoded);
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
+
+    res.status(200).json({ success: true, accessToken, user: decoded });
+  });
+};
+
+exports.logout = (req, res) => {
+  res.clearCookie('refreshToken');
+  res.status(200).json({ success: true, message: 'Successfully logged out' });
 };
