@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  form input {
+    @apply border focus:border-gray-400 focus:outline-none rounded-full py-2 px-3;
+  }
+  .btn-primary {
+    @apply bg-primary text-white py-2 rounded-full;
+  }
+}
+
 body {
-  font-family: 'Karla';
+  font-family: 'Karla', sans-serif;
 }
