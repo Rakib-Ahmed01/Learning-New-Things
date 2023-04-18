@@ -9,7 +9,7 @@ export default function useAuthCheck() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('airbnb-auth'));
 
-    if (user.name && user.email) {
+    if (user?.name && user?.email) {
       dispatch(loggedIn(user));
     }
     setAuthChecked(true);

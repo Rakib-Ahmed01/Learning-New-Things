@@ -41,7 +41,6 @@ exports.loginController = async (req, res) => {
   }
 
   const { accessToken, refreshToken } = generateRefreshAndAccesstoken({
-    name: user.name,
     email: user.email,
   });
 
@@ -52,7 +51,7 @@ exports.loginController = async (req, res) => {
 
   res.json({
     success: true,
-    message: 'login successful',
+    message: 'logged in successfully',
     data: {
       name: user.name,
       email: user.email,
@@ -100,13 +99,12 @@ exports.refreshTokenController = async (req, res) => {
     return res.status(401).json({ success: false, message: 'Unauthorized' });
   }
 
-  jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+  jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, decoded) => {
     if (err) {
       return res.status(403).json({ success: false, message: 'Forbidden' });
     }
 
     const { accessToken, refreshToken } = generateRefreshAndAccesstoken({
-      name: decoded.name,
       email: decoded.email,
     });
 
@@ -115,14 +113,29 @@ exports.refreshTokenController = async (req, res) => {
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
+    const user = await User.findOne({ email: decoded.email });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: 'something went wrong',
+      });
+    }
+
     res.json({
       success: true,
       message: 'new access token',
       data: {
-        name: decoded.name,
-        email: decoded.email,
+        name: user.name,
+        email: user.email,
         accessToken,
       },
     });
   });
+};
+
+exports.logoutController = async (req, res) => {
+  console.log('logout controller');
+  res.clearCookie('refreshToken');
+  res.status(200).json({ success: true, message: 'logged out successfully' });
 };

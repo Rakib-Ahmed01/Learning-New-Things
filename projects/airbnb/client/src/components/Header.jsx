@@ -1,12 +1,27 @@
-import { useSelector } from 'react-redux';
-import { selectUser } from '../state/features/auth/authSlice';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { loggedOut, selectUser } from '../state/features/auth/authSlice';
+import axiosInstance from '../utils/axios';
 
 export default function Header() {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      const { data } = await axiosInstance.post('/auth/logout');
+      toast.success(data.message);
+      localStorage.removeItem('airbnb-auth');
+      dispatch(loggedOut());
+    } catch (error) {
+      toast.error('Something went wrong');
+    }
+  };
 
   return (
     <header className="flex items-center justify-between">
-      <div className="flex gap-1 items-center text-primary">
+      <Link to="/" className="flex gap-1 items-center text-primary">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -22,7 +37,7 @@ export default function Header() {
           />
         </svg>
         <span className="font-bold text-xl">airbnb</span>
-      </div>
+      </Link>
       <div className="flex items-center  rounded-full px-4 py-2 cursor-pointer shadow-sm shadow-gray-100 border border-gray-100 gap-2">
         <div className="font-medium">Anywhere</div>
         <div className="border-l border-gray-300 h-6 w-px"></div>
@@ -76,6 +91,41 @@ export default function Header() {
           />
         </svg>
         {user?.name && <div className="font-medium">{user.name}</div>}
+        {user?.name && user?.email && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+            onClick={handleLogout}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+            />
+          </svg>
+        )}
+        {!user?.name && !user?.email && (
+          <Link to="/login">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+              />
+            </svg>
+          </Link>
+        )}
       </div>
     </header>
   );
