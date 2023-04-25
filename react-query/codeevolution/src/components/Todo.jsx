@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { queryClient } from '../main';
 import axiosInstance from '../utils/axios';
 
@@ -16,8 +17,8 @@ export default function Todo({ todo }) {
   // Mutation
   const { mutate } = useMutation({
     mutationFn: async (data) => axiosInstance.patch(`/todos/${data.id}`, data),
-    onSuccess: ({ data }) => {
-      queryClient.invalidateQueries({ queryKey: [data.id] });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todo', id] });
       alert(`Todo updated successfully`);
     },
   });
@@ -74,6 +75,9 @@ export default function Todo({ todo }) {
         <br />
         <button>Update</button>
       </form>
+      <Link to={`/todos/${id}`} style={{ color: 'lightblue' }}>
+        Details
+      </Link>
     </div>
   );
 }

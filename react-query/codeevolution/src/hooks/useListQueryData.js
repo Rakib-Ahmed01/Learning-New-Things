@@ -5,7 +5,7 @@ import axiosInstance from '../utils/axios';
 export default function useListQueryData({ queryKey, url }) {
   const { data, isLoading, error, fetchStatus, refetch, isFetching, isError } =
     useQuery({
-      queryKey: [queryKey],
+      queryKey: queryKey,
       queryFn: async () => {
         const res = await axiosInstance(url);
         return res.data;
@@ -15,10 +15,10 @@ export default function useListQueryData({ queryKey, url }) {
       // staleTime: 10000, // in milliseconds
       // refetchOnWindowFocus: false,
       // refetchIntervalInBackground: false,
-      // refetchOnMount: false,
+      refetchOnMount: true,
       // cacheTime: 5000,
       // refetchInterval: 5000,
-      enabled: false,
+      // enabled: false,
       onSuccess: (data) => {
         return data;
       },

@@ -11,3 +11,7 @@ body {
   color: #e7e4e4;
   font-family: 'Karla';
 }
+
+#layout a {
+  color: lightblue;
+}

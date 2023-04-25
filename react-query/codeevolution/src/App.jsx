@@ -5,6 +5,8 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import Home from './pages/Home';
+import ParallelQueriesPage from './pages/ParallelQueriesPage';
+import TodoPage from './pages/TodoPage';
 import TodosPage from './pages/Todos';
 
 const router = createBrowserRouter([
@@ -12,8 +14,18 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <>
-        <Link to="/">Home</Link>
-        <Link to="/todos">Todos</Link>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '10px',
+          }}
+          id="layout"
+        >
+          <Link to="/">Home</Link>
+          <Link to="/todos">Todos</Link>
+          <Link to="/parallel-queries">ParallelQueriesPage</Link>
+        </div>
         <Outlet />
       </>
     ),
@@ -25,6 +37,14 @@ const router = createBrowserRouter([
       {
         path: '/todos',
         element: <TodosPage />,
+      },
+      {
+        path: '/todos/:todoId',
+        element: <TodoPage />,
+      },
+      {
+        path: '/parallel-queries',
+        element: <ParallelQueriesPage />,
       },
     ],
   },

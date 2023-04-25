@@ -6,17 +6,18 @@ export default function Todos() {
   const {
     error,
     data: todos,
-    isFetching,
     isLoading,
-    fetchStatus,
     refetch,
-  } = useTodosQueryData({ queryKey: ['todos'], url: '/todos' });
+  } = useTodosQueryData({
+    queryKey: ['todos'],
+    url: '/todos',
+  });
 
   if (error) {
     return <div>There was an error fetching todos!</div>;
   }
 
-  if ((isLoading || isFetching) && fetchStatus !== 'idle') {
+  if (isLoading) {
     return <div>Loading todos...</div>;
   }
 
