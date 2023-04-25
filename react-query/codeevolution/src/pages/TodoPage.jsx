@@ -1,9 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../utils/axios';
 
 export default function TodoPage() {
   const { todoId } = useParams();
+  const queryClient = useQueryClient();
+  const todos = queryClient.getQueryData(['todos']) || [];
 
   const {
     data: todo,
@@ -16,6 +18,10 @@ export default function TodoPage() {
       return res.data;
     },
     cacheTime: 30000,
+    initialData: () => {
+      const todo = todos.find((todo) => todo.id == todoId);
+      return todo;
+    },
   });
 
   if (isError) {
@@ -33,7 +39,7 @@ export default function TodoPage() {
       <p>Id: {id}</p>
       <p>UserId: {userId}</p>
       <p>Title: {title}</p>
-      <p>Completed: {completed.toString()}</p>
+      <p>Completed: {completed?.toString()}</p>
     </div>
   );
 }

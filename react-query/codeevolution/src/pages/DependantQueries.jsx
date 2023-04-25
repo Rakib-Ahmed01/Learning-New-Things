@@ -7,17 +7,29 @@ export default function DependantQueries() {
     return res.data;
   });
 
+  const userId = user?.id;
+
   const {
     data: todos,
     isLoading,
     isError,
   } = useQuery(
-    ['todos', user?.id],
+    ['todos', userId],
     async () => {
-      const res = await axiosInstance(`/todos?userId_like=${user?.id}`);
+      const res = await axiosInstance(`/todos?userId_like=${userId}`);
       return res.data;
     },
-    { enabled: !!user }
+    {
+      enabled: !!userId,
+      initialData: [
+        {
+          id: 500,
+          userId: 3,
+          title: 'Todo',
+          completed: true,
+        },
+      ],
+    }
   );
 
   if (isError) {
