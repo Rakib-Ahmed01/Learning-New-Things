@@ -4,6 +4,7 @@ import {
   Outlet,
   RouterProvider,
 } from 'react-router-dom';
+import DynamicParallelQueries from './pages/DynamicParallelQueries';
 import Home from './pages/Home';
 import ParallelQueriesPage from './pages/ParallelQueriesPage';
 import TodoPage from './pages/TodoPage';
@@ -24,7 +25,8 @@ const router = createBrowserRouter([
         >
           <Link to="/">Home</Link>
           <Link to="/todos">Todos</Link>
-          <Link to="/parallel-queries">ParallelQueriesPage</Link>
+          <Link to="/parallel-queries">Parallel Queries</Link>
+          <Link to="/dynamic-parallel-queries">Dynamic Parallel Queries</Link>
         </div>
         <Outlet />
       </>
@@ -45,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: '/parallel-queries',
         element: <ParallelQueriesPage />,
+      },
+      {
+        path: '/dynamic-parallel-queries',
+        element: <DynamicParallelQueries />,
       },
     ],
   },
