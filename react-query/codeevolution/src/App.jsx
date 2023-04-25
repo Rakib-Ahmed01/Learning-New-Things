@@ -1,27 +1,37 @@
-import { useQueryErrorResetBoundary } from '@tanstack/react-query';
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import Todos from './components/Todos';
+import {
+  createBrowserRouter,
+  Link,
+  Outlet,
+  RouterProvider,
+} from 'react-router-dom';
+import Home from './pages/Home';
+import TodosPage from './pages/Todos';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <>
+        <Link to="/">Home</Link>
+        <Link to="/todos">Todos</Link>
+        <Outlet />
+      </>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: '/todos',
+        element: <TodosPage />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  const { reset } = useQueryErrorResetBoundary();
-  return (
-    <div>
-      <ErrorBoundary
-        onReset={reset}
-        fallbackRender={({ resetErrorBoundary }) => (
-          <div>
-            <p>There was an error!</p>
-            <button onClick={() => resetErrorBoundary()}>Try again</button>
-          </div>
-        )}
-      >
-        <Suspense fallback={<p>Loading...</p>}>
-          <Todos />
-        </Suspense>
-      </ErrorBoundary>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

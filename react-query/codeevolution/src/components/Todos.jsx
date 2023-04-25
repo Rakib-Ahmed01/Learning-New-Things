@@ -1,19 +1,33 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import useTodosQueryData from '../hooks/useListQueryData';
+import Todo from './Todo';
 
 export default function Todos() {
-  const { data: todos } = useQuery({
-    suspense: true,
-    queryKey: ['todos'],
-    queryFn: async () => {
-      const res = await axios('https://jsonplaceholder.typicode.com/todos');
-      return res.data;
-    },
-  });
+  // Query
+  const {
+    error,
+    data: todos,
+    isFetching,
+    isLoading,
+    fetchStatus,
+    refetch,
+  } = useTodosQueryData({ queryKey: ['todos'], url: '/todos' });
+
+  if (error) {
+    return <div>There was an error fetching todos!</div>;
+  }
+
+  if ((isLoading || isFetching) && fetchStatus !== 'idle') {
+    return <div>Loading todos...</div>;
+  }
 
   return (
-    <div>
-      <pre>{JSON.stringify(todos, null, 3)}</pre>
-    </div>
+    <>
+      <button onClick={refetch}>Fetch Todos</button>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {(todos || []).map((todo) => {
+          return <Todo key={todo.id} todo={todo} />;
+        })}
+      </div>
+    </>
   );
 }
