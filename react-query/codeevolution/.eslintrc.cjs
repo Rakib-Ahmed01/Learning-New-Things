@@ -13,6 +13,6 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
     'react/prop-types': 'off',
-    'react/no-unused-var': 'off',
+    'no-unused-var': 'off',
   },
 };

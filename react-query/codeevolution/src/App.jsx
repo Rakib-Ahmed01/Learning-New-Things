@@ -7,6 +7,7 @@ import {
 import DependantQueries from './pages/DependantQueries';
 import DynamicParallelQueries from './pages/DynamicParallelQueries';
 import Home from './pages/Home';
+import InfiniteQueries from './pages/InfiniteQueries';
 import ParallelQueriesPage from './pages/ParallelQueriesPage';
 import TodoPage from './pages/TodoPage';
 import TodosPage from './pages/Todos';
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
           <Link to="/parallel-queries">Parallel Queries</Link>
           <Link to="/dynamic-parallel-queries">Dynamic Parallel Queries</Link>
           <Link to="/dependant-queries">Dependant Queries</Link>
+          <Link to="/infinite-queries">Infinite Queries</Link>
         </div>
         <Outlet />
       </>
@@ -58,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: '/dependant-queries',
         element: <DependantQueries />,
+      },
+      {
+        path: '/infinite-queries',
+        element: <InfiniteQueries />,
       },
     ],
   },
