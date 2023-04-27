@@ -5,7 +5,8 @@ import axiosInstance from '../utils/axios';
 export default function TodoPage() {
   const { todoId } = useParams();
   const queryClient = useQueryClient();
-  const todos = queryClient.getQueryData(['todos']) || [];
+  const { todos } =
+    queryClient.getQueryData(['todos', Math.ceil(todoId / 2)]) || {};
 
   const {
     data: todo,
@@ -13,13 +14,18 @@ export default function TodoPage() {
     isError,
   } = useQuery({
     queryKey: ['todo', todoId],
-    queryFn: async ({ queryKey }) => {
-      const res = await axiosInstance(`/todos/${queryKey[1]}`);
+    queryFn: async ({ queryKey, signal }) => {
+      console.log({ signal });
+      const res = await axiosInstance(`/todos/${queryKey[1]}`, { signal });
       return res.data;
     },
     cacheTime: 30000,
-    initialData: () => {
-      const todo = todos.find((todo) => todo.id == todoId);
+    // initialData: () => {
+    //   const todo = todos.find((todo) => todo.id == todoId);
+    //   return todo;
+    // },
+    placeholderData: () => {
+      const todo = todos?.find((todo) => todo.id == todoId);
       return todo;
     },
   });

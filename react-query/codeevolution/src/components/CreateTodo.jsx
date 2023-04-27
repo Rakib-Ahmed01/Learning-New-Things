@@ -17,7 +17,12 @@ export default function CreateTodo() {
   // Mutation
   const { mutate } = useMutation({
     mutationFn: (data) => axiosInstance.post('/todos', data),
-    onSuccess: () => {
+    onMutate: (variables) => {
+      console.log({ variables });
+      return { ...variables, name: 'Rakib Ahmed' };
+    },
+    onSuccess: (data, variables, context) => {
+      console.log({ data, variables, context });
       queryClient.invalidateQueries({ queryKey: ['todos'] });
       setText('');
     },

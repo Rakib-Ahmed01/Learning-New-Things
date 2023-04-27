@@ -51,7 +51,7 @@ export default function InfiniteQueries() {
       </div>
       <pre>
         {JSON.stringify(
-          data.pages.map((page) => page.data),
+          data.pages?.map((page) => page.data),
           null,
           5
         )}

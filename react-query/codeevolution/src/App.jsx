@@ -9,6 +9,7 @@ import DynamicParallelQueries from './pages/DynamicParallelQueries';
 import Home from './pages/Home';
 import InfiniteQueries from './pages/InfiniteQueries';
 import ParallelQueriesPage from './pages/ParallelQueriesPage';
+import Posts from './pages/Posts';
 import TodoPage from './pages/TodoPage';
 import TodosPage from './pages/Todos';
 
@@ -23,11 +24,13 @@ const router = createBrowserRouter([
             flexDirection: 'row',
             gap: '10px',
             marginBottom: '10px',
+            flexWrap: 'wrap',
           }}
           id="layout"
         >
           <Link to="/">Home</Link>
           <Link to="/todos">Todos</Link>
+          <Link to="/posts">Posts</Link>
           <Link to="/parallel-queries">Parallel Queries</Link>
           <Link to="/dynamic-parallel-queries">Dynamic Parallel Queries</Link>
           <Link to="/dependant-queries">Dependant Queries</Link>
@@ -64,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: '/infinite-queries',
         element: <InfiniteQueries />,
+      },
+      {
+        path: '/posts',
+        element: <Posts />,
       },
     ],
   },
