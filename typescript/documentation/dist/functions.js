@@ -28,3 +28,13 @@ getUser.method = 'GET';
     const user = yield getUser({ userId: 100 });
     console.log(user);
 }))();
+function fn(ctor) {
+    return new ctor('Hello world!');
+}
+class FnClass {
+    constructor(param) {
+        return { param };
+    }
+}
+const result = fn(FnClass);
+console.log(result);

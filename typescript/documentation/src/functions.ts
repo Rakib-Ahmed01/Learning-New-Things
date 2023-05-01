@@ -37,3 +37,21 @@ getUser.method = 'GET';
   const user = await getUser({ userId: 100 });
   console.log(user);
 })();
+
+// Construct Signatures
+type SomeConstructor = {
+  new (param: string): any;
+};
+
+function fn(ctor: SomeConstructor) {
+  return new ctor('Hello world!');
+}
+
+class FnClass {
+  constructor(param: string) {
+    return { param };
+  }
+}
+
+const result = fn(FnClass);
+console.log(result);
