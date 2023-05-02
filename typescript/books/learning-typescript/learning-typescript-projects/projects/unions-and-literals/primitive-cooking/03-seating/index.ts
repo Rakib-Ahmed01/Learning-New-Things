@@ -1,9 +1,9 @@
 // Please fill in any missing type annotations here...
 const headOfTable = "Me!";
-let adjacentLeft;
-let adjacentRight;
-let furtherLeft;
-let furtherRight;
+let adjacentLeft: "Susie" | "Tommy";
+let adjacentRight: "Susie" | "Tommy";
+let furtherLeft: "Angelica" | "Chuckie" | undefined;
+let furtherRight: "Chuckie" | "Tommy" | "Kimi" | undefined;
 
 // I always invite Susie and Tommy! ♥
 if (Math.random() > 0.5) {
@@ -37,7 +37,7 @@ if (furtherLeft === "Angelica" && furtherRight !== "Chuckie") {
 
 // If I invited Chuckie but not Angelica, I'll invite Timmy. They get along well with Chuckie but not Angelica.
 if (furtherLeft === "Chuckie") {
-	furtherRight = "Timmy";
+	furtherRight = "Tommy";
 }
 
 console.log(`At the head of the table is... ${headOfTable}`);
@@ -45,7 +45,7 @@ console.log(`At the head of the table is... ${headOfTable}`);
 console.log(`Adjacent to the left is: ${adjacentLeft}`);
 console.log(`Adjacent to the right is: ${adjacentRight}`);
 
-console.log(`Further down on the left is: ${adjacentLeft ?? "nobody"}`);
-console.log(`Further down on the right is: ${adjacentRight ?? "nobody"}`);
+console.log(`Further down on the left is: ${furtherLeft ?? "nobody"}`);
+console.log(`Further down on the right is: ${furtherRight ?? "nobody"}`);
 
 export {};
