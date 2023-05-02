@@ -43,10 +43,7 @@ class Humanoid extends Robot {
 		this.catchphrase = catchphrase;
 	}
 	announce() {
-		console.log(`Greetings. I am ${this.name}.`);
-		for (let ability of this.abilities) {
-			console.log(`I am able to ${ability}.`);
-		}
+		super.announce();
 		console.log(` > ${this.catchphrase} <`);
 	}
 }
