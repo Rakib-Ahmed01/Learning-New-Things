@@ -13,8 +13,6 @@ const add = (a, b) => {
     return a + b;
 };
 add.description = 'This function is for adding two numbers';
-console.log(add(5, 5));
-console.log(add.description);
 const getUser = (requestData) => __awaiter(void 0, void 0, void 0, function* () {
     return {
         name: 'Rakib',
@@ -26,7 +24,7 @@ getUser.url = 'https://api.github.com/users';
 getUser.method = 'GET';
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield getUser({ userId: 100 });
-    console.log(user);
+    // console.log(user);
 }))();
 function fn(ctor) {
     return new ctor('Hello world!');
@@ -37,4 +35,19 @@ class FnClass {
     }
 }
 const result = fn(FnClass);
-console.log(result);
+// console.log(result);
+// Generic function
+function getFirstElement(param) {
+    return param[0];
+}
+console.log(getFirstElement([1, 2, 3, 4, 5]));
+function getAllTheKeys(param) {
+    return Object.keys(param[0]);
+}
+const obj = getAllTheKeys([
+    {
+        name: 'Rakib',
+        age: 21,
+    },
+]);
+console.log(obj);
