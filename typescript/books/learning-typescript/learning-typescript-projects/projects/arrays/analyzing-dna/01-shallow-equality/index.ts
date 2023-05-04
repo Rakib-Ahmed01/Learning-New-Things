@@ -1,7 +1,7 @@
 // Write your shallowEquality function here! ✨
 // You'll need to export it so the tests can run it.
 
-export function shallowEquality(a: string[], b: string[]) {
+export default function shallowEquality(a: string[], b: string[]) {
 	return JSON.stringify(a) === JSON.stringify(b);
 }
 
