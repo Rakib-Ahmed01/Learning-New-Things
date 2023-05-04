@@ -3,7 +3,7 @@
 
 type CipherFunction = (char: string) => string;
 
-function createAdvancedCipher(
+export function createAdvancedCipher(
 	onVowel: CipherFunction,
 	onConsonant: CipherFunction,
 	onPunctuation: CipherFunction

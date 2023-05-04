@@ -18,7 +18,9 @@ One for vowels, one for consonants, and one for punctuation.
 Parameters:
 
 1. `onVowel`: A function that takes in a string and returns another string
+
 2. `onConsonant`: A function that takes in a string and returns another string
+
 3. `onPunctuation`: A function that takes in a string and returns another string
 
 Return: a function with:

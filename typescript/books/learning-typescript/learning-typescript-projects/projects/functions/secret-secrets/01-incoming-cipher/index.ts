@@ -3,7 +3,7 @@
 
 type CipherFunction = (text: string) => string;
 
-function createCipher(cipher: CipherFunction) {
+export function createCipher(cipher: CipherFunction) {
 	return (text: string) => {
 		let result = "";
 		for (let char of text) {
