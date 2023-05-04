@@ -3,7 +3,8 @@
 Good.
 You've chosen to accept the mission.
 
-Your first task is to implement for us a function we can use to crate text encoders.
+Your first task is to implement for us a function we can use to create text encoders.
+
 As you may recall from Spy 101 training, we often enlist functions such as [ROT13](https://en.wikipedia.org/wiki/ROT13) to hide text from onlookers.
 
 Your assignment, assuming you opt into it, is to develop a `createCipher` function.
@@ -13,6 +14,11 @@ Its return type should be a function that takes in a string and returns the resu
 > Tip: you can loop over a string a `for...of`
 
 ## Specification
+
+Your assignment, assuming you opt into it, is to develop a `createCipher` function.
+Its sole parameter should be a "cipher" function that takes in a string and returns a string.
+
+Its return type should be a function that takes in a string and returns the result of calling that cipher on each character of the string.
 
 Parameters:
 
