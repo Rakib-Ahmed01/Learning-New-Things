@@ -20,4 +20,14 @@ const artifacts = {
 	"Sword of the Ancients": {
 		type: "sword",
 	},
-};
+} as const;
+
+export type ArtifactName = keyof typeof artifacts;
+
+type ArtifactType = typeof artifacts[keyof typeof artifacts]["type"];
+
+export function getArtifactType(artifactName: ArtifactName): ArtifactType {
+	return artifacts[artifactName].type;
+}
+
+const artifactType = getArtifactType("Cosmic Key");
