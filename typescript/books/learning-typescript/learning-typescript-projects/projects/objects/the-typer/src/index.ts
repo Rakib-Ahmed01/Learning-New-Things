@@ -3,6 +3,7 @@
 let current = {
 	name: "Woesong Bridge",
 	proximity: 100,
+	type: "path",
 	through: {
 		area: "middle",
 		downstream: {
@@ -62,7 +63,6 @@ let current = {
 			type: "path",
 		},
 	},
-	type: "path",
 };
 
 let treasure;

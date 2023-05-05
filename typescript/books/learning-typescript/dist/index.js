@@ -18,6 +18,25 @@ const firstName = hasBoth;
 const lastName = hasBoth;
 console.log(firstName);
 let user1 = { name: 'John', age: 20, email: 'john@gmail.com' };
+// const user2: User = { name: 'John', id: 1, email: 'john@gmail.com', job: 'Web Developer' }; // ERROR!!! Object literal may only specify known properties, and 'job' does not exist in type 'User'.
+const user2 = {
+    name: 'John',
+    id: 1,
+    email: 'john@gmail.com',
+    job: 'Web Developer',
+};
+const userWithExtraProperties = user2;
+console.log(userWithExtraProperties);
+function getTheSameUser(user) {
+    return user;
+}
+getTheSameUser({
+    id: 1,
+    name: 'John',
+    email: 'john@gmail.com',
+    job: 'Web Developer',
+}); // Error!!
+getTheSameUser(user2);
 function isUser(user) {
     return user.email !== undefined && user.id !== undefined;
 }

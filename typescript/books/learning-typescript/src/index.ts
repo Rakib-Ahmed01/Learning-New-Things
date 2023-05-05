@@ -41,6 +41,31 @@ type Person = {
 
 let user1: User | Person = { name: 'John', age: 20, email: 'john@gmail.com' };
 
+// const user2: User = { name: 'John', id: 1, email: 'john@gmail.com', job: 'Web Developer' }; // ERROR!!! Object literal may only specify known properties, and 'job' does not exist in type 'User'.
+
+const user2 = {
+  name: 'John',
+  id: 1,
+  email: 'john@gmail.com',
+  job: 'Web Developer',
+};
+
+const userWithExtraProperties: User = user2;
+
+console.log(userWithExtraProperties);
+
+function getTheSameUser(user: User) {
+  return user;
+}
+
+getTheSameUser({
+  id: 1,
+  name: 'John',
+  email: 'john@gmail.com',
+  // job: 'Web Developer',
+}); // Error!!
+getTheSameUser(user2);
+
 function isUser(user: User | Person): user is User {
   return (user as User).email !== undefined && (user as User).id !== undefined;
 }
@@ -50,3 +75,13 @@ if (isUser(user1)) {
 } else {
   console.log('user1 is person');
 }
+
+// Union Types
+type Student = {
+  name: string;
+  roll: number;
+  subject?: string;
+  // subject: string | undefined
+};
+
+const student1: Student = { roll: 1, name: 'John' };
