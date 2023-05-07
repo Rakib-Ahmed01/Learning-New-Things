@@ -1,5 +1,5 @@
-import { expect, it } from "vitest";
-import { Equal, Expect } from "../helpers/type-utils";
+import { expect, it } from 'vitest';
+import { Equal, Expect } from '../helpers/type-utils';
 
 export class Component<TProps> {
   private props: TProps;
@@ -11,11 +11,15 @@ export class Component<TProps> {
   getProps = () => this.props;
 }
 
-const cloneComponent = (component: unknown) => {
+const cloneComponent = <T>(component: Component<T>) => {
   return new Component(component.getProps());
 };
 
-it("Should clone the props from a passed-in Component", () => {
+const component = new Component({ a: 1, b: 2, c: 3 });
+
+const clonedComponent = cloneComponent(component);
+
+it('Should clone the props from a passed-in Component', () => {
   const component = new Component({ a: 1, b: 2, c: 3 });
 
   const clonedComponent = cloneComponent(component);
