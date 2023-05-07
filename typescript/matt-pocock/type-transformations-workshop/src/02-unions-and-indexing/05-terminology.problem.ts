@@ -8,26 +8,27 @@
  * Which is which?
  */
 
-type A =
-  | {
-      type: "a";
-      a: string;
-    }
-  | {
-      type: "b";
-      b: string;
-    }
-  | {
-      type: "c";
-      c: string;
-    };
+type A = // Discriminated Union
 
-type B = "a" | "b" | "c";
+    | {
+        type: 'a';
+        a: string;
+      }
+    | {
+        type: 'b';
+        b: string;
+      }
+    | {
+        type: 'c';
+        c: string;
+      };
 
-enum C {
-  A = "a",
-  B = "b",
-  C = "c",
+type B = 'a' | 'b' | 'c'; // Union
+
+enum C { // Oviously, Harmful Enum
+  A = 'a',
+  B = 'b',
+  C = 'c',
 }
 
 export {};
