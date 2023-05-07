@@ -1,27 +1,36 @@
-import { expect, it } from "vitest";
-import { Equal, Expect } from "../helpers/type-utils";
+import { expect, it } from 'vitest';
+import { Equal, Expect } from '../helpers/type-utils';
 
 const array = [
   {
-    name: "John",
+    name: 'John',
   },
   {
-    name: "Steve",
+    name: 'Steve',
   },
 ];
 
-const obj = array.reduce((accum, item) => {
+const obj = array.reduce<Record<string, { name: string }>>((accum, item) => {
   accum[item.name] = item;
   return accum;
 }, {});
 
-it("Should resolve to an object where name is the key", () => {
+const arr = [1, 2, 3, 4, 5];
+
+const sum = arr.reduce(
+  (acc, curr) => {
+    return { ...acc, sum: acc.sum + curr };
+  },
+  { sum: 0 }
+);
+
+it('Should resolve to an object where name is the key', () => {
   expect(obj).toEqual({
     John: {
-      name: "John",
+      name: 'John',
     },
     Steve: {
-      name: "Steve",
+      name: 'Steve',
     },
   });
 
