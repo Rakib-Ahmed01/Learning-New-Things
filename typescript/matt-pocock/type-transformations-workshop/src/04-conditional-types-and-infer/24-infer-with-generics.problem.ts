@@ -36,4 +36,5 @@ type TypeC = { c: boolean };
 
 type Union = TypeA | TypeB | TypeC;
 
-type Intersect = UnionToIntersection<Union>; // expected type: TypeA & TypeB & TypeC
+type Intersect = UnionToIntersection<Union>;
+//     ^? // expected type: TypeA & TypeB & TypeC
