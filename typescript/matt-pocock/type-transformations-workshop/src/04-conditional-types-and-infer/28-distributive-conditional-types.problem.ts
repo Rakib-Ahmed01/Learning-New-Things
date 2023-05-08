@@ -1,7 +1,18 @@
-import { Equal, Expect } from "../helpers/type-utils";
+import { Equal, Expect } from '../helpers/type-utils';
 
-type Fruit = "apple" | "banana" | "orange";
+type Fruit = 'apple' | 'banana' | 'orange';
 
-type AppleOrBanana = Fruit extends "apple" | "banana" ? Fruit : never;
+// type AppleOrBanana = Extract<Fruit, 'apple' | 'banana'>;
+// type AppleOrBanana = Fruit extends infer TFruit
+//   ? TFruit extends 'apple' | 'banana'
+//     ? TFruit
+//     : never
+//   : never;
 
-type tests = [Expect<Equal<AppleOrBanana, "apple" | "banana">>];
+type GetAppleOrBanana<T> = T extends 'apple' | 'banana' ? T : never;
+
+type AppleOrBanana<T> = T extends Fruit ? T : never;
+
+type tests = [
+  Expect<Equal<AppleOrBanana<'apple' | 'banana'>, 'apple' | 'banana'>>
+];
