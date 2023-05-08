@@ -1,4 +1,4 @@
-import { Equal, Expect } from "../helpers/type-utils";
+import { Equal, Expect } from '../helpers/type-utils';
 
 interface MyComplexInterface<Event, Context, Name, Point> {
   getEvent: () => Event;
@@ -8,9 +8,9 @@ interface MyComplexInterface<Event, Context, Name, Point> {
 }
 
 type Example = MyComplexInterface<
-  "click",
-  "window",
-  "my-event",
+  'click',
+  'window',
+  'my-event',
   { x: 12; y: 14 }
 >;
 
