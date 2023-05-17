@@ -2,8 +2,7 @@ import { Equal, Expect } from '../helpers/type-utils';
 
 type Event = `log_in` | 'log_out' | 'sign_up';
 
-type ObjectOfKeys = Record<Uppercase<Event>, string>;
-type ObjectOfKeys2 = { [key in Uppercase<Event>]: string };
+type ObjectOfKeys = unknown;
 
 type tests = [
   Expect<

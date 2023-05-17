@@ -9,12 +9,12 @@ type tests = [
     Equal<
       ObjectOfKeys,
       {
-        userId: string;
-        userName: string;
-        postId: string;
-        postName: string;
-        commentId: string;
-        commentName: string;
+        userId: () => void;
+        userName: () => void;
+        postId: () => void;
+        postName: () => void;
+        commentId: () => void;
+        commentName: () => void;
       }
     >
   >

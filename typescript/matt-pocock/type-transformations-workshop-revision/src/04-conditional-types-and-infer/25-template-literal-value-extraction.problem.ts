@@ -8,7 +8,16 @@ type Names = [
   'BB King'
 ];
 
-type GetSurname<T> = T extends `${infer first} ${infer last}` ? last : never;
+// type GetSurname<T> = T extends `${string} ${string}`
+//   ? S.Split<T, ' '>[1]
+//   : never;
+
+type GetSurname<T> = T extends `${string} ${infer TInfferedLastName}`
+  ? TInfferedLastName
+  : never;
+
+type name = GetSurname<Names[4]>;
+//    ^?
 
 type tests = [
   Expect<Equal<GetSurname<Names[0]>, 'Pocock'>>,

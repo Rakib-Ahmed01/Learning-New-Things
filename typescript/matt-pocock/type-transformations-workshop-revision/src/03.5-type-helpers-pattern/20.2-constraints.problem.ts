@@ -1,6 +1,6 @@
 import { Equal, Expect } from '../helpers/type-utils';
 
-type AddRoutePrefix<TRoute> = `/${TRoute}`;
+type AddRoutePrefix = unknown;
 
 type tests = [
   Expect<Equal<AddRoutePrefix<''>, '/'>>,

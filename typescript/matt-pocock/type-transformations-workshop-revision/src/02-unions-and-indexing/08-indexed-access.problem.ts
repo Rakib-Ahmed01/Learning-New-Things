@@ -1,12 +1,12 @@
 import { Equal, Expect } from '../helpers/type-utils';
 
 export const fakeDataDefaults = {
-  String: 'Default string',
+  String: 'default string',
   Int: 1,
   Float: 1.14,
   Boolean: true,
   ID: 'id',
-};
+} as const;
 
 export type StringType = unknown;
 export type IntType = unknown;

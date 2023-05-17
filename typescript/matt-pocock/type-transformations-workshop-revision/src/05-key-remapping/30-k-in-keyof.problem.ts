@@ -1,4 +1,4 @@
-import { Equal, Expect } from "../helpers/type-utils";
+import { Equal, Expect } from '../helpers/type-utils';
 
 interface Attributes {
   firstName: string;
@@ -18,5 +18,5 @@ type tests = [
         age: () => number;
       }
     >
-  >,
+  >
 ];
