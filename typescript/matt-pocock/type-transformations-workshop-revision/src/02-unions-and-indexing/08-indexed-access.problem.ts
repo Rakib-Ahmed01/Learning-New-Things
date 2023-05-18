@@ -6,7 +6,7 @@ export const fakeDataDefaults = {
   Float: 1.14,
   Boolean: true,
   ID: 'id',
-} as const;
+};
 
 export type StringType = unknown;
 export type IntType = unknown;

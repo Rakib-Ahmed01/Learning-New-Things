@@ -1,4 +1,4 @@
-import { Equal, Expect } from "../helpers/type-utils";
+import { Equal, Expect } from '../helpers/type-utils';
 
 interface Attributes {
   id: string;
@@ -28,5 +28,5 @@ type tests = [
           username: string;
         }
     >
-  >,
+  >
 ];

@@ -1,8 +1,8 @@
-import { Equal, Expect } from "../helpers/type-utils";
+import { Equal, Expect } from '../helpers/type-utils';
 
-type UserPath = "/users/:id";
+type UserPath = '/users/:id';
 
-type UserOrganisationPath = "/users/:id/organisations/:organisationId";
+type UserOrganisationPath = '/users/:id/organisations/:organisationId';
 
 type ExtractPathParams = unknown;
 
@@ -13,5 +13,5 @@ type tests = [
       ExtractPathParams<UserOrganisationPath>,
       { id: string; organisationId: string }
     >
-  >,
+  >
 ];

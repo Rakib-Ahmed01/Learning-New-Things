@@ -1,4 +1,4 @@
-import { Equal, Expect } from "../helpers/type-utils";
+import { Equal, Expect } from '../helpers/type-utils';
 
 interface Values {
   email: string;
@@ -6,15 +6,13 @@ interface Values {
   lastName: string;
 }
 
-type ValuesAsUnionOfTuples = {
-  [K in keyof Values]: [K, Values[K]];
-};
+type ValuesAsUnionOfTuples = unknown;
 
 type tests = [
   Expect<
     Equal<
       ValuesAsUnionOfTuples,
-      ["email", string] | ["firstName", string] | ["lastName", string]
+      ['email', string] | ['firstName', string] | ['lastName', string]
     >
   >
 ];

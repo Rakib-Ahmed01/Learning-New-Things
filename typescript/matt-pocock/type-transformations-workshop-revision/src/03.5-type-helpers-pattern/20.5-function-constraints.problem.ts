@@ -1,9 +1,6 @@
 import { Equal, Expect } from '../helpers/type-utils';
 
-type GetParametersAndReturnType<T> = {
-  params: Parameters<T>;
-  returnValue: ReturnType<T>;
-};
+type GetParametersAndReturnType = unknown;
 
 type tests = [
   Expect<

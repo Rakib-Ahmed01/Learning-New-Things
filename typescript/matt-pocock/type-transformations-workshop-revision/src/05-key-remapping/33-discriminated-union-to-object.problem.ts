@@ -16,9 +16,7 @@ type Route =
 //   [R in keyof Route as Route['route']]: Extract<Route['search'], { route: R }>;
 // };
 
-type RoutesObject = {
-  [R in Route['route']]: Extract<Route, { route: R }>['search'];
-};
+type RoutesObject = unknown;
 
 type tests = [
   Expect<

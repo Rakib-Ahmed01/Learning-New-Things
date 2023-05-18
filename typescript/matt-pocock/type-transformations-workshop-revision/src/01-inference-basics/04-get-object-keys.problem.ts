@@ -10,7 +10,7 @@ const testingFrameworks = {
   mocha: {
     label: 'Mocha',
   },
-};
+} as const;
 
 type TestingFramework = unknown;
 

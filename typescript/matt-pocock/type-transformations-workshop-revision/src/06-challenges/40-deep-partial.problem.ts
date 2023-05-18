@@ -1,6 +1,9 @@
-import { Equal, Expect } from "../helpers/type-utils";
+import { Equal, Expect } from '../helpers/type-utils';
 
-type DeepPartial<T> = unknown;
+type DeepPartial<T> = Partial<T>;
+
+type X = DeepPartial<{ a: string; b: number; c: { d: string } }>;
+//   ^?
 
 type MyType = {
   a: string;
