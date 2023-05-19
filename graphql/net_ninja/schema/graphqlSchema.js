@@ -4,7 +4,10 @@ const {
   GraphQLSchema,
   GraphQLInt,
   GraphQLList,
+  GraphQLID,
 } = require('graphql');
+const { Book } = require('../models/Book');
+const { Author } = require('../models/Author');
 
 const books = [
   {
@@ -111,8 +114,7 @@ const BookType = new GraphQLObjectType({
     },
     author: {
       type: AuthorType,
-      resolve(parent, args) {
-        console.log({ parent, args });
+      resolve(parent) {
         return authors.find((author) => author.id === parent.authorId);
       },
     },
@@ -139,17 +141,28 @@ const RootQuery = new GraphQLObjectType({
   fields: () => ({
     book: {
       type: BookType,
-      args: { id: { type: GraphQLString } },
-      resolve(parent, args) {
-        console.log({ parent, args });
-        return books.find((book) => book.id === args.id);
+      args: { id: { type: GraphQLID } },
+      async resolve(parent, args) {
+        return await Book.findOne({ _id: args.id });
       },
     },
     author: {
       type: AuthorType,
-      args: { id: { type: GraphQLString } },
-      resolve(parent, args) {
-        return authors.find((author) => author.id === args.id);
+      args: { id: { type: GraphQLID } },
+      async resolve(parent, args) {
+        return await Author.findOne({ _id: args.id });
+      },
+    },
+    books: {
+      type: new GraphQLList(BookType),
+      resolve() {
+        return books;
+      },
+    },
+    authors: {
+      type: new GraphQLList(AuthorType),
+      resolve() {
+        return authors;
       },
     },
   }),
