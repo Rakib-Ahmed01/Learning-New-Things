@@ -24,15 +24,8 @@ async function saveTodo(todo) {
     headers: { 'Content-Type': 'application/json' },
   });
 
-  // const newTodo = await res.json();
-
-  // console.log(newTodo);
-
-  // const li = document.createElement('li');
-  // li.innerText = newTodo.title;
-  // todoContainer.appendChild(li);
-  // todoText.value = '';
   intialize();
+  todoText.value = '';
 }
 
 async function intialize() {
