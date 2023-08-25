@@ -23,7 +23,7 @@ const currentDirWithSrcAndModulesAndModule = path.join(
 );
 
 const isAgree = readlineSync.keyInYN(
-  `Do you want to create a module named ${currentDirWithSrcAndModulesAndModule}? like ${moduleName}.schema.${ext}`
+  `Do you want to create a module named ${currentDirWithSrcAndModulesAndModule}? like ${moduleName}.[schema].${ext}`
 );
 
 if (!isAgree) {

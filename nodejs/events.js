@@ -1,5 +1,6 @@
-import { inspect } from 'util';
-inspect.defaultOptions.depth = null;
+import util from 'util';
+util.inspect.defaultOptions.depth = null;
+util.inspect.colors = true;
 
 import EventEmitter from 'events';
 
@@ -22,7 +23,15 @@ newEmitter.emit('event');
 newEmitter.removeListener('event', listener);
 
 newEmitter.emit('event');
-newEmitter.emit('onceEvent', 5);
+newEmitter.emit('onceEvent', 5, {});
 newEmitter.emit('onceEvent');
 
-console.log(newEmitter);
+const myObject = {
+  name: 'John',
+  age: 30,
+};
+
+console.log(util.inspect(myObject)); // Outputs: { name: 'John', age: 30 }
+console.log(util.inspect(myObject, { colors: true, depth: null }));
+
+console.log(util.isObject(null));
