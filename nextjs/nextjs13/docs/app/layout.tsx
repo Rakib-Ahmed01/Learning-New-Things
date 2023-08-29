@@ -1,9 +1,12 @@
 import { Metadata } from 'next';
 import { Fira_Code } from 'next/font/google';
+import Link from 'next/link';
 import React from 'react';
 import './globals.css';
 
 const firaCode = Fira_Code({ subsets: ['latin'] });
+
+export const runtime = 'edge';
 
 export const metadata: Metadata = {
   title: 'Learning Next.js 13',
@@ -17,7 +20,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={firaCode.className}>{children}</body>
+      <body className={firaCode.className}>
+        <nav className="text-cyan-400 flex flex-row gap-2">
+          <Link href={'/'}>Home</Link>
+          <Link href={'/blogs'}>Blogs</Link>
+          <Link href={'/client'}>Client</Link>
+        </nav>
+        {children}
+      </body>
     </html>
   );
 }

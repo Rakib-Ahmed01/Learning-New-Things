@@ -8,7 +8,10 @@ export type Blog = {
 };
 
 export default async function BlogsPage() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+    cache: 'force-cache',
+    next: { revalidate: 36000 },
+  });
   const blogs = (await res.json()) as Blog[];
 
   return (
