@@ -15,8 +15,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  analytics,
+  team,
 }: {
   children: React.ReactNode;
+  team: React.ReactNode;
+  analytics: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -27,6 +31,8 @@ export default function RootLayout({
           <Link href={'/client'}>Client</Link>
         </nav>
         {children}
+        {team}
+        {analytics}
       </body>
     </html>
   );
