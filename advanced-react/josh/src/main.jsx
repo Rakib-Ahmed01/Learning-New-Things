@@ -1,37 +1,35 @@
+/* eslint-disable react/prop-types */
+import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 
-function render(reactElement, containerDOMElement) {
-  // createRoot(containerDOMElement).render(
-  //   createElement(
-  //     reactElement.type,
-  //     { ...reactElement.props },
-  //     reactElement.children
-  //   )
-  // );
-  createRoot(containerDOMElement).render(reactElement);
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+function Button({ children, status }) {
+  const themeColor = status === 'cancel' ? 'pink' : 'blue';
+  return (
+    <button
+      style={{
+        color: themeColor,
+        borderColor: themeColor,
+        border: '2px solid',
+        padding: '5px 10px',
+        cursor: 'pointer',
+      }}
+    >
+      {children}
+    </button>
+  );
 }
 
-const items = ['mango', 'pineapple', 'jackfruit'];
+export function App() {
+  return (
+    <div>
+      <Button status="cancel">Cancel</Button>
+      <div style={{ marginTop: '10px' }}></div>
+      <Button status="confirm">Confirm</Button>
+    </div>
+  );
+}
 
-// const reactElement = {
-//   type: 'div',
-//   props: {
-//     className: 'elem',
-//   },
-//   children: `Itmes left to purchase: ${items.length}`,
-// };
-
-// const reactElement = createElement(
-//   'div',
-//   null,
-//   'Itmes left to purchase: ',
-//   items.length
-// );
-
-const reactElement = (
-  <div>Items left to purchase: {items.length} items left</div>
-);
-
-const containerDOMElement = document.getElementById('root');
-
-render(reactElement, containerDOMElement);
+root.render(createElement(App));
