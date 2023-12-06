@@ -15,12 +15,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  analytics,
-  team,
+  modal,
 }: {
   children: React.ReactNode;
-  team: React.ReactNode;
-  analytics: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -29,10 +27,10 @@ export default function RootLayout({
           <Link href={'/'}>Home</Link>
           <Link href={'/blogs'}>Blogs</Link>
           <Link href={'/client'}>Client</Link>
+          <Link href={'/products'}>Products</Link>
         </nav>
         {children}
-        {team}
-        {analytics}
+        {modal}
       </body>
     </html>
   );
